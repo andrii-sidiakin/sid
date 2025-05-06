@@ -6,7 +6,7 @@
 namespace sid::mt {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// sid.mp.iseq
+// sid.mt.iseq
 
 /// sequence of indices
 template <std::size_t... Is> struct iseq {};
@@ -30,13 +30,14 @@ template <std::size_t N> consteval auto make_iseq() {
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// sid.mp.iseq_for
+// sid.mt.iseq_for
 
 ///
 template <typename... Ts> struct iseq_for {
     using type = decltype(make_iseq<sizeof...(Ts)>());
 };
 
+///
 template <typename... Ts> using iseq_for_t = iseq_for<Ts...>::type;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

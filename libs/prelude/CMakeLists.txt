@@ -3,12 +3,12 @@
 add_library(sid_prelude INTERFACE)
 add_library(Sid::prelude ALIAS sid_prelude)
 
+set(COMPILER_IS_CXX_LIKE_GCC  $<COMPILE_LANG_AND_ID:CXX,GNU,Clang,AppleClang>)
+set(COMPILER_IS_CXX_LIKE_MSVC $<COMPILE_LANG_AND_ID:CXX,MSVC>)
+
 target_compile_features(sid_prelude INTERFACE
     cxx_std_23
 )
-
-set(COMPILER_IS_CXX_LIKE_GCC  $<COMPILE_LANG_AND_ID:CXX,GNU,Clang,AppleClang>)
-set(COMPILER_IS_CXX_LIKE_MSVC $<COMPILE_LANG_AND_ID:CXX,MSVC>)
 
 target_compile_options(sid_prelude INTERFACE
     # enable more warnings

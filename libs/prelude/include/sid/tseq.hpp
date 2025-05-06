@@ -8,7 +8,7 @@
 namespace sid::mt {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// sid.mp.tseq
+// sid.mt.tseq
 
 /// sequence of types
 template <typename... Ts> struct tseq {};
@@ -24,7 +24,7 @@ template <typename... Ts> struct iseq_for<tseq<Ts...>> {
 };
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// sid.mp.tseq_elem
+// sid.mt.tseq_elem
 
 ///
 template <std::size_t I, typename TT> struct tseq_elem;
@@ -57,6 +57,10 @@ template <std::size_t I, typename... Ts> struct tseq_elem<I, tseq<Ts...>> {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // sid.mt.copy_index_if
 
+/// Defines a member type 'type' as a sequence of those indices from a given
+/// sequence II for which Pred<TT[I]> holds.
+///
+/// Pre:  each I from II less than size(TT)
 ///
 template <template <typename> class Pred, typename II, typename TT>
 struct copy_index_if;
@@ -99,7 +103,8 @@ struct copy_index_if<Pred, iseq<Is...>, tseq<Ts...>> {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // sid.mt.index_if
 
-///
+/// Defines a member type 'type' as a sequence of indices for which Pred<TT[I]>
+/// holds.
 template <template <typename> class Pred, typename TT> struct index_if;
 
 ///
@@ -114,7 +119,6 @@ struct index_if<Pred, tseq<Ts...>>
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // sid.mt.select_index
 
-///
 ///
 template <typename Index, typename TT> struct select_index;
 
@@ -157,7 +161,6 @@ template <typename> struct pred_always_false : std::false_type {};
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // sid.mt.select_if
 
-///
 ///
 template <template <typename> class Pred, typename TT> struct select_if {
     using index_type = index_if_t<pred_if<Pred>::template type, TT>;
