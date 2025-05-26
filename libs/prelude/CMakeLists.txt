@@ -1,4 +1,4 @@
-# Sid.Prelude
+# sid.prelude
 
 add_library(sid_prelude INTERFACE)
 add_library(Sid::prelude ALIAS sid_prelude)
