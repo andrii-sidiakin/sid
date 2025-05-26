@@ -5,7 +5,7 @@ project(Sid VERSION 0.0.0)
 
 option(SID_BUILD_TESTS "Build tests" YES)
 option(SID_BUILD_EXAMPLES "Build examples" YES)
-option(SID_ENABLE_SANITIZER "Enable sanitizer" YES)
+option(SID_ENABLE_SANITIZER "Enable sanitizer" OFF)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")

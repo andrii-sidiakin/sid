@@ -33,10 +33,13 @@ target_compile_options(sid_prelude INTERFACE
     $<$<CONFIG:Release>:$<${COMPILE_CXX_LIKE_MSVC}:$<BUILD_INTERFACE:/WX>>>
 )
 
-target_link_options(sid_prelude INTERFACE
-    $<${COMPILE_CXX_GNU}:${SANITIZER_FLAGS_GNU_OR_CLANG}>
-    $<${COMPILE_CXX_Clang}:${SANITIZER_FLAGS_GNU_OR_CLANG}>
+if(SID_ENABLE_SANITIZER)
+    message(STATUS "SID_ENABLE_SANITIZER=${SID_ENABLE_SANITIZER}")
+    target_link_options(sid_prelude INTERFACE
+        $<${COMPILE_CXX_GNU}:${SANITIZER_FLAGS_GNU_OR_CLANG}>
+        $<${COMPILE_CXX_Clang}:${SANITIZER_FLAGS_GNU_OR_CLANG}>
 )
+endif()
 
 target_include_directories(sid_prelude INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

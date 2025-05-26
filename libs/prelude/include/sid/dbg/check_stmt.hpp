@@ -124,7 +124,7 @@ constexpr bool handle_stmt_violation(check_stmt_tag<Tag, Tags...> /*tag*/,
         }
     }
 
-    // than, call the top one and return its status
+    // then, call the top one and return its status
     using ret_t = decltype(handle_stmt_violation(Tag{}, stmt));
     if constexpr (std::same_as<ret_t, bool>) {
         return handle_stmt_violation(Tag{}, stmt);

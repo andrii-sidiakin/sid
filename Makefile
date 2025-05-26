@@ -1,8 +1,9 @@
 THISFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 THISFILE_DIR  := $(realpath $(dir ${THISFILE_PATH}))
 
-# setup default configuration 
 MAINGOAL := $(firstword $(MAKECMDGOALS))
+
+# setup default configuration (iff do_configure is the main goal)
 ifeq ($(MAINGOAL),do_configure)
 ifeq (${CFG_GENERATOR},) # set default generator
 	CFG_GENERATOR="Ninja"
@@ -63,7 +64,6 @@ do_configure:
 configure-gcc-debug:
 	@make -f ${THISFILE_PATH} do_configure \
 		CC=gcc CXX=g++ \
-		CFG_GENERATOR="Ninja" \
 		CFG_BUILD_TYPE="Debug" \
 		CFG_BUILD_NAME="gcc-debug" 
 
@@ -71,6 +71,21 @@ configure-gcc-debug:
 configure-clang-debug:
 	@make -f ${THISFILE_PATH} do_configure \
 		CC=clang CXX=clang++ \
-		CFG_GENERATOR="Ninja" \
 		CFG_BUILD_TYPE="Debug" \
 		CFG_BUILD_NAME="clang-debug" \
+
+
+.PHONY=configure-gcc-release
+configure-gcc-release:
+	@make -f ${THISFILE_PATH} do_configure \
+		CC=gcc CXX=g++ \
+		CFG_BUILD_TYPE="Release" \
+		CFG_BUILD_NAME="gcc-release" 
+
+.PHONY=configure-clang-release
+configure-clang-release:
+	@make -f ${THISFILE_PATH} do_configure \
+		CC=clang CXX=clang++ \
+		CFG_BUILD_TYPE="Release" \
+		CFG_BUILD_NAME="clang-release" \
+
