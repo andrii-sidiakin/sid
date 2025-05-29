@@ -130,14 +130,15 @@ struct socket_recv_fn {
         return socket_recv(s, buf, size, ec);
     }
 
-    template <class Socket>
-    constexpr auto operator()(Socket &s, bio::mutable_buffer buf,
+    template <class Socket, bio::buffer_extent_t Extent>
+    constexpr auto operator()(Socket &s, bio::mutable_buffer<Extent> buf,
                               std::error_code &ec) const {
         return this->operator()(s, buf.data(), buf.size(), ec);
     }
 
-    template <class Socket>
-    constexpr auto operator()(Socket &s, bio::mutable_buffer buf) const {
+    template <class Socket, bio::buffer_extent_t Extent>
+    constexpr auto operator()(Socket &s,
+                              bio::mutable_buffer<Extent> buf) const {
         return this->operator()(s, buf.data(), buf.size());
     }
 };
@@ -163,14 +164,14 @@ struct socket_send_fn {
         return socket_send(s, buf, size, ec);
     }
 
-    template <class Socket>
-    constexpr auto operator()(Socket &s, bio::const_buffer buf,
+    template <class Socket, bio::buffer_extent_t Extent>
+    constexpr auto operator()(Socket &s, bio::const_buffer<Extent> buf,
                               std::error_code &ec) const {
         return this->operator()(s, buf.data(), buf.size(), ec);
     }
 
-    template <class Socket>
-    constexpr auto operator()(Socket &s, bio::const_buffer buf) const {
+    template <class Socket, bio::buffer_extent_t Extent>
+    constexpr auto operator()(Socket &s, bio::const_buffer<Extent> buf) const {
         return this->operator()(s, buf.data(), buf.size());
     }
 };
@@ -180,15 +181,14 @@ struct socket_send_fn {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 namespace sid::net {
-namespace {
 
+namespace {
 constexpr details::socket_open_fn open{};
 constexpr details::socket_close_fn close{};
 constexpr details::socket_connect_fn connect{};
 constexpr details::socket_bind_fn bind{};
 constexpr details::socket_recv_fn recv{};
 constexpr details::socket_send_fn send{};
-
 } // namespace
 
 } // namespace sid::net
